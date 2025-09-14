@@ -47,7 +47,7 @@
             border-radius: 4px;
             box-sizing: border-box;
             font-family: 'Courier New', monospace;
-            resize: none; 
+            resize: none;
             transition: border-color 0.2s;
         }
         textarea:focus {
@@ -100,6 +100,50 @@
             font-weight: bold;
             text-align: center;
         }
+        /* Style untuk tutorial */
+        details {
+            margin-bottom: 30px;
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            font-size: 16px;
+        }
+        summary::-webkit-details-marker {
+            color: #007bff;
+        }
+        .tutorial-content {
+            margin-top: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .tutorial-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 15px;
+            color: #007bff;
+        }
+        .tutorial-content ul {
+            padding-left: 20px;
+        }
+        .disclaimer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+        }
+        .watermark {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #aaa;
+        }
     </style>
 </head>
 <body>
@@ -107,6 +151,26 @@
     <div class="container">
         <h1>Pengecek Folback</h1>
         <p class="subtitle">Alat bantu untuk mencari siapa yang tidak folback akun Instagram Anda.</p>
+
+        <details>
+            <summary>Cara Mendapatkan Data dari Instagram</summary>
+            <div class="tutorial-content">
+                <p>Ada dua cara untuk mendapatkan daftar pengikut dan yang Anda ikuti:</p>
+                
+                <h4>Cara 1: Salin Manual (Cepat)</h4>
+                <p>Ini cara tercepat jika daftarnya tidak terlalu panjang. Buka aplikasi Instagram di HP Anda, pergi ke profil, lalu ketuk **"Mengikuti"** atau **"Pengikut"**. Gulir ke bawah hingga semua nama termuat, lalu salin dan tempel datanya langsung ke kotak teks di atas.</p>
+
+                <h4>Cara 2: Minta Salinan Data Resmi (Terbaik)</h4>
+                <p>Ini cara paling akurat karena Instagram akan mengirimkan seluruh data Anda dalam satu file ZIP. </p>
+                <ul>
+                    <li>Buka **Pengaturan dan privasi** di aplikasi Instagram.</li>
+                    <li>Pilih **Pusat Akun** &rarr; **Informasi dan izin Anda** &rarr; **Unduh informasi Anda**.</li>
+                    <li>Ketuk **Minta unduhan** &rarr; pilih akun Anda &rarr; **Beberapa informasi** &rarr; centang **Pengikut dan Mengikuti** &rarr; **Format HTML**.</li>
+                    <li>Tunggu email dari Instagram dengan tautan unduhan. Setelah diunduh, ekstrak file ZIP dan cari file **<code>followers.html</code>** dan **<code>following.html</code>**.</li>
+                    <li>Buka kedua file tersebut di browser dan salin isinya ke kotak teks di atas.</li>
+                </ul>
+            </div>
+        </details>
 
         <h2>Daftar Pengikut Anda (Followers)</h2>
         <textarea id="followersInput" placeholder="Salin dan tempel data Followers Anda di sini."></textarea>
@@ -119,6 +183,15 @@
         <div id="result">
             <p>Hasil akan muncul di sini.</p>
         </div>
+
+    </div>
+
+    <div class="disclaimer">
+        Website ini masih dalam tahap pengembangan, untuk tutorial kedepannya mungkin menggunakan foto agar tidak bingung.
+    </div>
+    
+    <div class="watermark">
+        Jangan lupa follow akun instagram bdmnnn___
     </div>
 
     <script>
