@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengecek Folback Minimalis</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #888;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+            resize: none; 
+            transition: border-color 0.2s;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:active {
+            transform: scale(0.99);
+        }
+        #result {
+            margin-top: 30px;
+        }
+        #result h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        #result ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #result li {
+            background-color: #eee;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Pengecek Folback</h1>
+        <p class="subtitle">Alat bantu untuk mencari siapa yang tidak folback akun Instagram Anda.</p>
+
+        <h2>Daftar Pengikut Anda (Followers)</h2>
+        <textarea id="followersInput" placeholder="Salin dan tempel data Followers Anda di sini."></textarea>
+
+        <h2>Daftar yang Anda Ikuti (Following)</h2>
+        <textarea id="followingInput" placeholder="Salin dan tempel data Following Anda di sini."></textarea>
+
+        <button onclick="checkFolback()">Cek Non-Folback</button>
+
+        <div id="result">
+            <p>Hasil akan muncul di sini.</p>
+        </div>
+    </div>
+
+    <script>
+        function checkFolback() {
+            const followersText = document.getElementById('followersInput').value;
+            const followingText = document.getElementById('followingInput').value;
+            const resultDiv = document.getElementById('result');
+
+            if (!followersText || !followingText) {
+                resultDiv.innerHTML = '<p class="error">Mohon isi kedua daftar terlebih dahulu.</p>';
+                return;
+            }
+
+            function cleanAndExtractUsers(text) {
+                const lines = text.split('\n');
+                const users = [];
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (line.length > 0 && !line.includes(' ')) {
+                        users.push(line);
+                    }
+                }
+                return users;
+            }
+
+            const followers = cleanAndExtractUsers(followersText);
+            const following = cleanAndExtractUsers(followingText);
+
+            const followersSet = new Set(followers);
+            
+            const notFollowingBack = [];
+            for (const user of following) {
+                if (!followersSet.has(user)) {
+                    notFollowingBack.push(user);
+                }
+            }
+
+            let resultHtml = '<h3>Hasil Pengecekan:</h3>';
+
+            if (notFollowingBack.length > 0) {
+                resultHtml += '<p>Berikut adalah daftar yang tidak folback Anda:</p>';
+                resultHtml += '<ul>';
+                notFollowingBack.forEach(user => {
+                    resultHtml += `<li>${user}</li>`;
+                });
+                resultHtml += '</ul>';
+                resultHtml += `<p>Total: <b>${notFollowingBack.length} akun</b></p>`;
+            } else {
+                resultHtml += '<p>Selamat! Semua yang Anda ikuti sudah folback Anda.</p>';
+            }
+
+            resultDiv.innerHTML = resultHtml;
+        }
+    </script>
+
+</body>
+</html>
